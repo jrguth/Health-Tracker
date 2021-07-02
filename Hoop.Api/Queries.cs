@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 
+
 using HotChocolate;
 using HotChocolate.Data;
 
@@ -11,19 +12,28 @@ namespace Hoop.Api
 {
     public class Queries
     {
-        // [UseDbContext(typeof(HoopDBContext))]
-        // public IQueryable<User> GetUsers([ScopedService] HoopDBContext dbContext)
-        //     => dbContext.Users;
+        [UseDbContext(typeof(HoopDBContext))]
+        [UseProjection]
+        [UseFiltering]
+        public IQueryable<Patient> GetPatients([ScopedService] HoopDBContext dbContext)
+            => dbContext.Patients;
 
         [UseDbContext(typeof(HoopDBContext))]
-        public User GetUser([ScopedService] HoopDBContext context, int id)
-            => context.Find<User>(id);
+        public Patient GetPatient([ScopedService] HoopDBContext dbContext, int patientId)
+            => dbContext.Find<Patient>(patientId);
 
-         [UseDbContext(typeof(HoopDBContext))]
-         [UseProjection]
-        public IQueryable<Professional> GetProfessionalsForPatient([ScopedService] HoopDBContext context, int patientId)
-            => context.Relationships
-                .Where(r => r.PatientId == patientId)
-                .Select(r => r.Professional);
+        [UseDbContext(typeof(HoopDBContext))]
+        public Patient GetProfessional([ScopedService] HoopDBContext dbContext, int professionalId)
+            => dbContext.Find<Patient>(professionalId);
+
+        [UseDbContext(typeof(HoopDBContext))]
+        [UseProjection]
+        [UseFiltering]
+        public IQueryable<Professional> GetProfessionals([ScopedService] HoopDBContext dbContext)
+            => dbContext.Professionals;
+
+        [UseDbContext(typeof(HoopDBContext))]
+        public IQueryable<HealthLog> GetHealthLogsByPatientId([ScopedService] HoopDBContext dbContext, int patientId)
+            => dbContext.HealthLogs.Where(hl => hl.PatientId == patientId);
     }
 }

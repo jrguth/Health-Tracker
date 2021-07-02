@@ -63,5 +63,15 @@ namespace Hoop.Api
             await context.SaveChangesAsync();
             return new AddRelationshipResponsePayload(relationship);
         }
+
+        [UseDbContext(typeof(HoopDBContext))]
+        public async Task<HealthLog> AddHealthLog([ScopedService] HoopDBContext context, int patientId, string log)
+        {
+            var patient = await context.FindAsync<Patient>(patientId);
+            var healthLog = new HealthLog { Log = log };
+            patient.HealthLogs.Add(healthLog);
+            await context.SaveChangesAsync();
+            return healthLog;
+        }
     }
 }
