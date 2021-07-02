@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
+    <PackageReference Include="HotChocolate" Version="11.3.1"/>
+    <PackageReference Include="HotChocolate.Types.Selections" Version="10.5.5"/>
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.3.1"/>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hoop.Data\Hoop.Data.csproj"/>
+  </ItemGroup>
+</Project>
