@@ -1,0 +1,478 @@
+﻿schema {
+  query: Queries
+  mutation: Mutations
+}
+
+type Queries {
+  patients(where: PatientFilterInput): [Patient]
+  patient(patientId: Int!): Patient
+  professional(professionalId: Int!): Professional
+  professionals(where: ProfessionalFilterInput): [Professional]
+  healthLogsByPatientId(patientId: Int!): [HealthLog]
+  medicationsByPatientId(patientId: Int! order: [MedicationSortInput!]): [Medication]
+}
+
+type Mutations {
+  addPatient(input: AddPatientCommandInput): AddPatientResponsePayload
+  addProfessional(input: AddProfessionalCommandInput): AddProfessionalResponsePayload
+  addRelationship(patientId: Int! professionalId: Int!): AddRelationshipResponsePayload
+  addHealthLog(patientId: Int! log: String): HealthLog
+  addMedication(patientId: Int! medicationName: String dosage: String description: String): Medication
+  addHabit(relationshipId: Int! habitName: String): Habit
+  addHabitEvent(habitId: Int! habitEventType: HabitEventType! details: String): HabitEvent
+  addMood(command: AddMoodCommandInput): Mood
+  addEmotions(emotions: [AddEmotionCommandInput]): [Emotion]
+}
+
+input PatientFilterInput {
+  and: [PatientFilterInput!]
+  or: [PatientFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  userId: ComparableNullableOfInt32OperationFilterInput
+  user: UserFilterInput
+  healthLogs: ListFilterInputTypeOfHealthLogFilterInput
+  medications: ListFilterInputTypeOfMedicationFilterInput
+  moods: ListFilterInputTypeOfMoodFilterInput
+  relationships: ListFilterInputTypeOfRelationshipFilterInput
+}
+
+input ProfessionalFilterInput {
+  and: [ProfessionalFilterInput!]
+  or: [ProfessionalFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  userId: ComparableNullableOfInt32OperationFilterInput
+  user: UserFilterInput
+  relationships: ListFilterInputTypeOfRelationshipFilterInput
+}
+
+input MedicationSortInput {
+  id: SortEnumType
+  patientId: SortEnumType
+  medicationName: SortEnumType
+  dosage: SortEnumType
+  description: SortEnumType
+  patient: PatientSortInput
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input ComparableNullableOfInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input UserFilterInput {
+  and: [UserFilterInput!]
+  or: [UserFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  firstName: StringOperationFilterInput
+  lastName: StringOperationFilterInput
+  email: StringOperationFilterInput
+  phoneNumber: StringOperationFilterInput
+  pronouns: StringOperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  patients: ListFilterInputTypeOfPatientFilterInput
+  professionals: ListFilterInputTypeOfProfessionalFilterInput
+}
+
+input ListFilterInputTypeOfHealthLogFilterInput {
+  all: HealthLogFilterInput
+  none: HealthLogFilterInput
+  some: HealthLogFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfMedicationFilterInput {
+  all: MedicationFilterInput
+  none: MedicationFilterInput
+  some: MedicationFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfMoodFilterInput {
+  all: MoodFilterInput
+  none: MoodFilterInput
+  some: MoodFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfRelationshipFilterInput {
+  all: RelationshipFilterInput
+  none: RelationshipFilterInput
+  some: RelationshipFilterInput
+  any: Boolean
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input PatientSortInput {
+  id: SortEnumType
+  userId: SortEnumType
+  user: UserSortInput
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input ComparableDateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input ListFilterInputTypeOfPatientFilterInput {
+  all: PatientFilterInput
+  none: PatientFilterInput
+  some: PatientFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfProfessionalFilterInput {
+  all: ProfessionalFilterInput
+  none: ProfessionalFilterInput
+  some: ProfessionalFilterInput
+  any: Boolean
+}
+
+input HealthLogFilterInput {
+  and: [HealthLogFilterInput!]
+  or: [HealthLogFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  patientId: ComparableNullableOfInt32OperationFilterInput
+  log: StringOperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  patient: PatientFilterInput
+}
+
+input MedicationFilterInput {
+  and: [MedicationFilterInput!]
+  or: [MedicationFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  patientId: ComparableNullableOfInt32OperationFilterInput
+  medicationName: StringOperationFilterInput
+  dosage: StringOperationFilterInput
+  description: StringOperationFilterInput
+  patient: PatientFilterInput
+}
+
+input MoodFilterInput {
+  and: [MoodFilterInput!]
+  or: [MoodFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  patientId: ComparableInt32OperationFilterInput
+  weather: StringOperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  patient: PatientFilterInput
+  checkIns: ListFilterInputTypeOfCheckInFilterInput
+  moodEmotions: ListFilterInputTypeOfMoodEmotionFilterInput
+}
+
+input RelationshipFilterInput {
+  and: [RelationshipFilterInput!]
+  or: [RelationshipFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  patientId: ComparableNullableOfInt32OperationFilterInput
+  professionalId: ComparableNullableOfInt32OperationFilterInput
+  patient: PatientFilterInput
+  professional: ProfessionalFilterInput
+  checkIns: ListFilterInputTypeOfCheckInFilterInput
+  habits: ListFilterInputTypeOfHabitFilterInput
+}
+
+input UserSortInput {
+  id: SortEnumType
+  firstName: SortEnumType
+  lastName: SortEnumType
+  email: SortEnumType
+  phoneNumber: SortEnumType
+  pronouns: SortEnumType
+  createdAt: SortEnumType
+}
+
+input ListFilterInputTypeOfCheckInFilterInput {
+  all: CheckInFilterInput
+  none: CheckInFilterInput
+  some: CheckInFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfMoodEmotionFilterInput {
+  all: MoodEmotionFilterInput
+  none: MoodEmotionFilterInput
+  some: MoodEmotionFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfHabitFilterInput {
+  all: HabitFilterInput
+  none: HabitFilterInput
+  some: HabitFilterInput
+  any: Boolean
+}
+
+input CheckInFilterInput {
+  and: [CheckInFilterInput!]
+  or: [CheckInFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  relationshipId: ComparableNullableOfInt32OperationFilterInput
+  moodId: ComparableNullableOfInt32OperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  mood: MoodFilterInput
+  relationship: RelationshipFilterInput
+}
+
+input MoodEmotionFilterInput {
+  and: [MoodEmotionFilterInput!]
+  or: [MoodEmotionFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  moodId: ComparableInt32OperationFilterInput
+  emotionId: ComparableInt32OperationFilterInput
+  emotion: EmotionFilterInput
+  mood: MoodFilterInput
+}
+
+input HabitFilterInput {
+  and: [HabitFilterInput!]
+  or: [HabitFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  relationshipId: ComparableNullableOfInt32OperationFilterInput
+  habitName: StringOperationFilterInput
+  relationship: RelationshipFilterInput
+  habitEvents: ListFilterInputTypeOfHabitEventFilterInput
+}
+
+input EmotionFilterInput {
+  and: [EmotionFilterInput!]
+  or: [EmotionFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  name: StringOperationFilterInput
+  emoji: StringOperationFilterInput
+  moodEmotions: ListFilterInputTypeOfMoodEmotionFilterInput
+}
+
+input ListFilterInputTypeOfHabitEventFilterInput {
+  all: HabitEventFilterInput
+  none: HabitEventFilterInput
+  some: HabitEventFilterInput
+  any: Boolean
+}
+
+input HabitEventFilterInput {
+  and: [HabitEventFilterInput!]
+  or: [HabitEventFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  habitId: ComparableNullableOfInt32OperationFilterInput
+  event: HabitEventTypeOperationFilterInput
+  details: StringOperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  habit: HabitFilterInput
+}
+
+input HabitEventTypeOperationFilterInput {
+  eq: HabitEventType
+  neq: HabitEventType
+  in: [HabitEventType!]
+  nin: [HabitEventType!]
+}
+
+type Professional {
+  id: Int!
+  userId: Int
+  user: User
+  relationships: [Relationship]
+}
+
+type Patient {
+  id: Int!
+  userId: Int
+  user: User
+  healthLogs: [HealthLog]
+  medications: [Medication]
+  moods: [Mood]
+  relationships: [Relationship]
+}
+
+type HealthLog {
+  id: Int!
+  patientId: Int
+  log: String
+  createdAt: DateTime!
+  patient: Patient
+}
+
+type Medication {
+  id: Int!
+  patientId: Int
+  medicationName: String
+  dosage: String
+  description: String
+  patient: Patient
+}
+
+type AddPatientResponsePayload {
+  patient: Patient
+}
+
+type AddProfessionalResponsePayload {
+  professional: Professional
+}
+
+type AddRelationshipResponsePayload {
+  relationship: Relationship
+}
+
+type Habit {
+  id: Int!
+  relationshipId: Int
+  habitName: String
+  relationship: Relationship
+  habitEvents: [HabitEvent]
+}
+
+type HabitEvent {
+  id: Int!
+  habitId: Int
+  event: HabitEventType!
+  details: String
+  createdAt: DateTime!
+  habit: Habit
+}
+
+type Mood {
+  id: Int!
+  patientId: Int!
+  weather: String
+  createdAt: DateTime!
+  patient: Patient
+  checkIns: [CheckIn]
+  moodEmotions: [MoodEmotion]
+}
+
+type Emotion {
+  id: Int!
+  name: String
+  emoji: String
+  moodEmotions: [MoodEmotion]
+}
+
+input AddPatientCommandInput {
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  pronouns: String
+}
+
+input AddProfessionalCommandInput {
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  pronouns: String
+}
+
+enum HabitEventType {
+  COMPLETED
+  SKIPPED
+  UNABLE_TO_COMPLETE
+}
+
+input AddMoodCommandInput {
+  patientId: Int!
+  weather: String
+  emotionIds: [Int!]
+}
+
+input AddEmotionCommandInput {
+  name: String
+  emoji: String
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+type MoodEmotion {
+  id: Int!
+  moodId: Int!
+  emotionId: Int!
+  emotion: Emotion
+  mood: Mood
+}
+
+type CheckIn {
+  id: Int!
+  relationshipId: Int
+  moodId: Int
+  createdAt: DateTime!
+  mood: Mood
+  relationship: Relationship
+}
+
+type Relationship {
+  id: Int!
+  patientId: Int
+  professionalId: Int
+  patient: Patient
+  professional: Professional
+  checkIns: [CheckIn]
+  habits: [Habit]
+}
+
+type User {
+  id: Int!
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  pronouns: String
+  createdAt: DateTime!
+  patients: [Patient]
+  professionals: [Professional]
+}

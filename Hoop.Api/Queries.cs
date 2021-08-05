@@ -23,8 +23,8 @@ namespace Hoop.Api
             => dbContext.Find<Patient>(patientId);
 
         [UseDbContext(typeof(HoopDBContext))]
-        public Patient GetProfessional([ScopedService] HoopDBContext dbContext, int professionalId)
-            => dbContext.Find<Patient>(professionalId);
+        public Professional GetProfessional([ScopedService] HoopDBContext dbContext, int professionalId)
+            => dbContext.Find<Professional>(professionalId);
 
         [UseDbContext(typeof(HoopDBContext))]
         [UseProjection]
@@ -35,5 +35,10 @@ namespace Hoop.Api
         [UseDbContext(typeof(HoopDBContext))]
         public IQueryable<HealthLog> GetHealthLogsByPatientId([ScopedService] HoopDBContext dbContext, int patientId)
             => dbContext.HealthLogs.Where(hl => hl.PatientId == patientId);
+
+        [UseDbContext(typeof(HoopDBContext))]
+        [UseSorting]
+        public IQueryable<Medication> GetMedicationsByPatientId([ScopedService] HoopDBContext dbContext, int patientId)
+            => dbContext.Medications.Where(m => m.PatientId == patientId);
     }
 }

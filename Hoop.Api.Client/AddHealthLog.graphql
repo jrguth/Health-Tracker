@@ -1,0 +1,5 @@
+mutation AddHealthLog($patientId: Int!, $log: String!){
+  addHealthLog(patientId: $patientId, log: $log){
+    id
+  }
+}

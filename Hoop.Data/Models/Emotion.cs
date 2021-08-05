@@ -13,7 +13,7 @@ namespace Hoop.Data.Models
         }
 
         public int Id { get; set; }
-        public string Emotion1 { get; set; }
+        public string Name { get; set; }
         public string Emoji { get; set; }
 
         public virtual ICollection<MoodEmotion> MoodEmotions { get; set; }

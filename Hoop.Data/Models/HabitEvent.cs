@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Hoop.Data.Enums;
+
 #nullable disable
 
 namespace Hoop.Data.Models
@@ -9,8 +11,9 @@ namespace Hoop.Data.Models
     {
         public int Id { get; set; }
         public int? HabitId { get; set; }
-        public string Event { get; set; }
+        public HabitEventType Event { get; set; }
         public string Details { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public virtual Habit Habit { get; set; }
     }

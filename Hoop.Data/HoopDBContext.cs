@@ -65,7 +65,7 @@ namespace Hoop.Data
                     .HasMaxLength(255)
                     .HasColumnName("emoji");
 
-                entity.Property(e => e.Emotion1)
+                entity.Property(e => e.Name)
                     .HasMaxLength(255)
                     .HasColumnName("emotion");
             });
@@ -97,7 +97,8 @@ namespace Hoop.Data
                 entity.Property(e => e.Event)
                     .IsRequired()
                     .HasMaxLength(255)
-                    .HasColumnName("event");
+                    .HasColumnName("event")
+                    .HasConversion<string>();
 
                 entity.Property(e => e.HabitId).HasColumnName("habitId");
 
