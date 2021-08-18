@@ -1,0 +1,35 @@
+﻿@page "/Test"
+@inject ApiProxyClient Proxy;
+
+<h3>Test</h3>
+
+<label for="patient-id-input">Enter patient ID: </label>
+<input id="patient-id-input" type="number" @bind="_patientIdInput" />
+
+<section>
+    <button class="btn btn-primary" @onclick="GetPatientAsync">Click me</button>
+</section>
+<section>
+    <pre>@_patientOutput</pre>
+</section>
+
+
+@code {
+    private int _patientIdInput = 0;
+    private string _patientOutput = string.Empty;
+
+    private async Task GetPatientAsync()
+    {
+        _patientOutput = string.Empty;
+        StateHasChanged();
+        if (_patientIdInput != 0)
+        {
+            Proxy.PostAsync("graphql", )
+            result.EnsureNoErrors();
+            _patientOutput = JsonSerializer.Serialize(result.Data, options: new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+        }
+    }
+}

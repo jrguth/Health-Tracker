@@ -1,7 +1,0 @@
-fragment UserFragment on User{
-  firstName
-  lastName
-  email
-  phoneNumber
-  pronouns
-}

@@ -14,12 +14,13 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using HotChocolate;
 
-using Hoop.Data;
+using Health.Web.Data;
 
-namespace Hoop.Api
+namespace Health.Web.Api
 {
     public class Startup
     {
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

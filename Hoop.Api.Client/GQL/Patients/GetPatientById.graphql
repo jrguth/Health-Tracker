@@ -1,0 +1,32 @@
+query GetPatientById($patientId: Int!){
+  patients(where: {
+    id: {
+      eq: $patientId
+    }
+  }){
+    id
+    user{
+      ...UserFragment
+    }
+    relationships{
+      habits{
+        id,
+        habitName
+      }
+      professional{
+        id
+        user{
+          ... UserFragment
+        }
+      }
+    }
+  }
+}
+
+fragment UserFragment on User{
+  firstName
+  lastName
+  email
+  phoneNumber
+  pronouns
+}

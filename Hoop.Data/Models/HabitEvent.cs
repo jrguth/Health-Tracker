@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Hoop.Data.Enums;
+using Health.Web.Data.Enums;
 
 #nullable disable
 
-namespace Hoop.Data.Models
+namespace Health.Web.Data.Models
 {
     public partial class HabitEvent
     {

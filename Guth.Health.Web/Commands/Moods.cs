@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-using Hoop.Data.Models;
+using Health.Web.Data.Models;
 
-namespace Hoop.Api.Commands
+namespace Health.Web.Api.Commands
 {
     public record AddMoodCommand(
         int PatientId,

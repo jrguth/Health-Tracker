@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Hoop.Api.Commands
+namespace Health.Web.Api.Commands
 {
     public record AddEmotionCommand(
         string Name,

@@ -1,10 +1,10 @@
-{
+﻿{
   "schema": "schema.graphql",
   "documents": "**/*.graphql",
   "extensions": {
     "strawberryShake": {
       "name": "HoopApiClient",
-      "namespace": "Hoop.Api.Client",
+      "namespace": "Health.Web.Api.Client",
       "url": "http://localhost:5000/graphql/",
       "dependencyInjection": true,
       "strictSchemaValidation": true,

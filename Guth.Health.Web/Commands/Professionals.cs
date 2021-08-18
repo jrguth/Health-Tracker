@@ -1,9 +1,9 @@
-using System;
-using Hoop.Api;
+﻿using System;
+using Health.Web.Api;
 
-namespace Hoop.Api.Commands
+namespace Health.Web.Api.Commands
 {
-    public record AddPatientCommand(
+    public record AddProfessionalCommand(
         string FirstName,
         string LastName,
         string Email,

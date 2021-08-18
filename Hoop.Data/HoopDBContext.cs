@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Hoop.Data.Models;
+using Health.Web.Data.Models;
 
 #nullable disable
 
-namespace Hoop.Data
+namespace Health.Web.Data
 {
     public partial class HoopDBContext : DbContext
     {

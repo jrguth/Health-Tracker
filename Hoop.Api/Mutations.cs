@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using HotChocolate;
 using HotChocolate.Data;
 
-using Hoop.Data;
-using Hoop.Data.Models;
-using Hoop.Data.Enums;
-using Hoop.Api.Commands;
+using Health.Web.Data;
+using Health.Web.Data.Models;
+using Health.Web.Data.Enums;
+using Health.Web.Api.Commands;
 
-namespace Hoop.Api
+namespace Health.Web.Api
 {
     public class Mutations
     {

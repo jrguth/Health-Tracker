@@ -1,0 +1,20 @@
+mutation AddPatient(
+  $firstName: String
+  $lastName: String
+  $email:String
+  $phoneNumber:String
+  $pronouns:String
+  ){
+    addPatient(input: {
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phoneNumber: $phoneNumber
+      pronouns: $pronouns
+    }){
+      patient{
+        id
+        userId
+      }
+  }
+}

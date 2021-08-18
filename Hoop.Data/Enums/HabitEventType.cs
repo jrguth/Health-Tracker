@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Hoop.Data.Enums
+namespace Health.Web.Data.Enums
 {
     public enum HabitEventType
     {
