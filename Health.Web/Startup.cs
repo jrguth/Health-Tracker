@@ -9,10 +9,15 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Health.Web.Data;
-using HotChocolate;
-using Health.Web.Api;
+using Microsoft.Extensions.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+
+using HotChocolate;
+
+using Health.Web.Data;
+
+using Health.Web.Api;
 
 namespace Health.Web
 {
@@ -31,11 +36,10 @@ namespace Health.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
-            services.AddHttpClient(
-                "HoopApiClient",
-                c => c.BaseAddress = new Uri("https://localhost:60915/graphql")
-            );
+            services.Add("HoopApiClient")
+                .AddHttpClient("HoopApiClient")
+                .ConfigureHttpClient(client =>
+                    client.BaseAddress = new Uri("https://localhost:44377/graphql"));
             services.AddHoopApiClient();
             services.AddPooledDbContextFactory<HoopDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("HoopDB")));
             services
@@ -70,6 +74,7 @@ namespace Health.Web
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapGraphQL();
             });
         }
     }

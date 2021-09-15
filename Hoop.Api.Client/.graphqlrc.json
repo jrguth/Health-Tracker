@@ -3,28 +3,28 @@
   "documents": "**/*.graphql",
   "extensions": {
     "strawberryShake": {
-      "name": "HoopApiClient",
-      "namespace": "Health.Web.Api.Client",
-      "url": "http://localhost:5000/graphql/",
-      "dependencyInjection": true,
-      "strictSchemaValidation": true,
-      "hashAlgorithm": "md5",
-      "useSingleFile": true,
-      "requestStrategy": "Default",
-      "outputDirectoryName": "Generated",
-      "noStore": false,
-      "emitGeneratedCode": true,
-      "razorComponents": false,
-      "records": {
-        "inputs": false,
-        "entities": false
-      },
-      "transportProfiles": [
-        {
-          "default": "Http",
-          "subscription": "WebSocket"
-        }
-      ]
+        "name": "HoopApiClient",
+        "namespace": "Health.Web.Api.Client",
+        "url": "http://localhost:44377/graphql",
+        "dependencyInjection": true,
+        "strictSchemaValidation": true,
+        "hashAlgorithm": "md5",
+        "useSingleFile": true,
+        "requestStrategy": "Default",
+        "outputDirectoryName": "Generated",
+        "noStore": false,
+        "emitGeneratedCode": true,
+        "razorComponents": false,
+        "records": {
+            "inputs": false,
+            "entities": false
+        },
+        "transportProfiles": [
+            {
+                "default": "Http",
+                "subscription": "WebSocket"
+            }
+        ]
     }
   }
 }

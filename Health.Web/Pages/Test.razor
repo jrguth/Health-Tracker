@@ -1,5 +1,6 @@
 ﻿@page "/Test"
-@inject IHoopApiClient ApiClient;
+@inject IHoopApiClient ApiClient
+@inject ILogger<Test> Logger
 
 <h3>Test</h3>
 
@@ -26,8 +27,10 @@
         {
             IOperationResult<IGetPatientByIdResult> res =
                 await ApiClient.GetPatientById.ExecuteAsync(_patientIdInput);
+            Logger.LogInformation(res.ToString());
+            Logger.LogInformation(JsonSerializer.Serialize(res));
             res.EnsureNoErrors();
-            _patientOutput = JsonSerializer.Serialize<IGetPatientByIdResult>(res.Data);
+            _patientOutput = JsonSerializer.Serialize(res.Data);
         }
     }
 }
